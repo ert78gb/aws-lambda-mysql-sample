@@ -1,0 +1,135 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "AWS Lambda MySql sample"
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/LoginResponse"
+            }
+          },
+          "400": {
+            "description": "400 response",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "403 response",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "404 response",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "500 response",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            },
+            ".*httpStatus\\\":404.*": {
+              "statusCode": "404",
+              "responseTemplates": {
+                "application/json": "#set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')))\n{\n  \"name\" : \"$errorMessageObj.name\",\n  \"message\" : \"$errorMessageObj.message\",\n  \"requestId\" : \"$errorMessageObj.requestId\"\n}"
+              }
+            },
+            ".*httpStatus\\\":403.*": {
+              "statusCode": "403",
+              "responseTemplates": {
+                "application/json": "#set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')))\n{\n  \"name\" : \"$errorMessageObj.name\",\n  \"message\" : \"$errorMessageObj.message\",\n  \"requestId\" : \"$errorMessageObj.requestId\"\n}"
+              }
+            },
+            ".*httpStatus\\\":400.*": {
+              "statusCode": "400",
+              "responseTemplates": {
+                "application/json": "#set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')))\n{\n  \"name\" : \"$errorMessageObj.name\",\n  \"message\" : \"$errorMessageObj.message\",\n  \"requestId\" : \"$errorMessageObj.requestId\"\n}"
+              }
+            },
+            ".*httpStatus\\\":500.*": {
+              "statusCode": "500",
+              "responseTemplates": {
+                "application/json": "#set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')))\n{\n  \"name\" : \"$errorMessageObj.name\",\n  \"message\" : \"$errorMessageObj.message\",\n  \"requestId\" : \"$errorMessageObj.requestId\"\n}"
+              }
+            }
+          },
+          "httpMethod": "POST",
+          "uri": "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:316025695147:function:aws-lambda-mysql-sample/invocations",
+          "type": "aws"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "LoginData": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "password": {
+          "type": "string",
+          "format": "password"
+        }
+      }
+    },
+    "LoginResponse": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "requestId": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

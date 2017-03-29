@@ -1,0 +1,49 @@
+{
+  "name": "aws-lambda-mysql-sample",
+  "private": false,
+  "version": "0.0.1",
+  "description": "mysql sample",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "mocha --ui bdd test/**/*.spec.js",
+    "coverage": "istanbul cover --report html node_modules/.bin/_mocha -- -R spec test/**/*.spec.js"
+  },
+  "keywords": [
+    "AWS",
+    "lambda",
+    "mysql",
+    "sample"
+  ],
+  "author": "Robert Kiss <ert78gb@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ert78gb/aws-lambda-mysql-sample.git"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "bluebird": "^3.5.0",
+    "bookshelf": "^0.10.3",
+    "jsonwebtoken": "^7.3.0",
+    "knex": "^0.12.9",
+    "mysql": "^2.13.0",
+    "validator": "^7.0.0"
+  },
+  "devDependencies": {
+    "istanbul": "^0.4.5",
+    "@types/mocha": "^2.2.40",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "chai-datetime": "^1.4.1",
+    "chai-string": "^1.3.0",
+    "sinon": "^2.1.0",
+    "supertest": "^3.0.0",
+    "mocha": "^3.2.0",
+    "mocha-sinon": "^1.1.6",
+    "sinon-chai": "^2.8.0"
+  }
+}

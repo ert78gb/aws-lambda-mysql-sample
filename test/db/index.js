@@ -1,0 +1,1 @@
+exports.cleaner = require('./dbCleaner');
